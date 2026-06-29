@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamera Penerjemah Isyarat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Penerjemah Isyarat 🖐️🔊</h1>
+        <p class="instruksi">Buka telapak tangan untuk <b>"Halo"</b>, kepalkan untuk <b>"Selesai"</b>.</p>
+        
+        <div class="video-container">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="output_canvas"></canvas>
+        </div>
+
+        <div class="subtitle-box">
+            <span id="subtitle">Menunggu tangan terdeteksi...</span>
+        </div>
+        
+        <button id="startButton">Aktifkan Kamera</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.8/wasm/vision_bundle.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

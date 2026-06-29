@@ -1,0 +1,85 @@
+/* Mengatur tampilan dasar halaman agar rapi di HP */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.instruksi {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Mengatur kotak video agar responsive dan bertumpuk pas dengan canvas */
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+#webcam, #output_canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Canvas berada di depan video untuk menggambar garis tangan */
+#output_canvas {
+    z-index: 2;
+}
+
+/* Mengatur tampilan kotak teks subtitle */
+.subtitle-box {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 8px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tombol Aktifkan Kamera */
+#startButton {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#startButton:active {
+    background-color: #0056b3;
+}
