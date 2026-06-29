@@ -8,15 +8,25 @@ const canvasElement = document.getElementById('output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
 const subtitleText = document.getElementById('subtitle');
 const startButton = document.getElementById('startButton');
+const progressBarFill = document.getElementById('progress-bar-fill');
 
 let handLandmarker = undefined;
 let runningMode = "VIDEO";
 let terakhirBicara = ""; // Untuk mencatat kata terakhir agar tidak diucapkan berulang-ulang
 
-// 1. Fungsi untuk me-load AI MediaPipe Hand Landmarker
+// 1. Fungsi untuk me-load AI MediaPipe Hand Landmarker + Animasi Persentase
 async function buatHandLandmarker() {
-    subtitleText.innerText = "Memuat AI pendeteksi tangan... Mohon tunggu.";
-    
+    // Simulasi Loading Bar Mulai Jalan dari 0%
+    let progress = 0;
+    const intervalLoading = setInterval(() => {
+        if (progress < 85) { // Naik pelan-pelan sampai 85% selagi nunggu download file asli
+            progress += Math.floor(Math.random() * 10) + 1;
+            if (progress > 85) progress = 85;
+            progressBarFill.style.width = progress + "%";
+            progressBarFill.innerText = progress + "%";
+        }
+    }, 200);
+
     // Menyiapkan pelacak file dari CDN Google
     const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.8/wasm"
@@ -32,8 +42,17 @@ async function buatHandLandmarker() {
         numHands: 1 // Kita batasi 1 tangan saja dulu agar tidak berat di HP
     });
     
-    // Teks ini akan muncul jika download AI di latar belakang sudah selesai
-    subtitleText.innerText = "AI Siap! Klik 'Aktifkan Kamera'.";
+    // Jika AI sudah selesai dimuat sepenuhnya, langsung tembak ke 100%
+    clearInterval(intervalLoading);
+    progressBarFill.style.width = "100%";
+    progressBarFill.innerText = "100%";
+    
+    // Tunggu setengah detik agar user melihat angka 100%, lalu ubah teks menjadi Siap!
+    setTimeout(() => {
+        subtitleText.innerText = "AI Siap! Klik 'Aktifkan Kamera'.";
+        // Hilangkan progress bar hijau agar kotak subtitle bersih kembali
+        document.querySelector('.progress-bar-bg').style.display = "none";
+    }, 600);
 }
 buatHandLandmarker(); // Jalankan fungsi load AI di awal halaman dibuka
 
